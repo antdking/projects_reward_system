@@ -1,5 +1,7 @@
-from django.shortcuts import render
 from django import forms
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
+
 from create_teacher import utils
 
 
@@ -9,6 +11,7 @@ class CreateTeacherForm(forms.Form):
     is_staff = forms.BooleanField(required=False)
 
 
+@login_required()
 def create_teacher(request):
     if request.method == 'POST':  # If the form has been submitted
         form = CreateTeacherForm(request.POST)
