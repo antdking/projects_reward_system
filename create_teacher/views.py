@@ -13,10 +13,13 @@ def create_teacher(request):
     if request.method == 'POST':  # If the form has been submitted
         form = CreateTeacherForm(request.POST)
         if form.is_valid():
+            first_name = form.cleaned_data['first_name']
+            last_name = form.cleaned_data['last_name']
+            is_staff = form.cleaned_data['is_staff']
             user = utils.create_teacher_object(
-                form.first_name,
-                form.last_name,
-                admin=form.is_staff)
+                first_name,
+                last_name,
+                admin=is_staff)
             user.save()
             return render(request, "create_teacher/create.html", {
                 'success': user.username, })
