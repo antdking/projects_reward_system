@@ -17,4 +17,5 @@ urlpatterns = patterns('',
     url(r'^pw_change_done/$', 'django.contrib.auth.views.password_change_done',
         {'template_name': 'main/pw_change_done.html'}, name="password_change_done"),
     url(r'^create_teacher/$', 'create_teacher.views.create_teacher'),
+    url(r'^create_student/$', 'student.views.create_student'),
 )
