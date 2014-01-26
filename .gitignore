@@ -1,0 +1,11 @@
+# database
+*.db
+*.sqlite3
+
+# residual files
+*.*~
+.idea/
+
+# compiled python
+__pycache__/
+*.py[cod]

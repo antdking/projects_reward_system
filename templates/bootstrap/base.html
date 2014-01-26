@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head>
+    <title>{% block title %}bootstrap template page{% endblock %}</title>
+    <link href="{% block bootstrap_css %}{% static "bootstrap/css/bootstrap.min.css" %}{% endblock %}" rel="stylesheet" media="screen">
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+{% block pre_content %}{% endblock %}
+<script src="//code.jquery.com/jquery.min.js"></script>
+<script src="{% block bootstrap_js %}{% static "bootstrap/js/bootstrap.min.js" %}"{% endblock %}></script>
+{% block content %}{% endblock %}
+</body>
+</html>
