@@ -12,15 +12,16 @@
 {% csrf_token %}
     <div class="form-group">
         {{ form.username.label_tag }}
-        <input class="form-control" type="text" id="{{ form.username.id_for_label }}" name="{{ form.username.html_name }}" placeholder="enter username..">
+        <input required="required" class="form-control" id="focusedInput" type="text" id="{{ form.username.id_for_label }}" name="{{ form.username.html_name }}" placeholder="enter username..">
     </div>
     <div class="form-group">
         {{ form.password.label_tag }}
-        <input class="form-control" type="password" id="{{ form.password.id_for_label }}" name="{{ form.password.html_name }}" placeholder="enter password..">
+        <input required="required" class="form-control" type="password" id="{{ form.password.id_for_label }}" name="{{ form.password.html_name }}" placeholder="enter password..">
     </div>
 
 <input class="btn btn-default" type="submit" value="login" />
 <input type="hidden" name="next" value="{{ next }}" />
 </form>
+<script type="text/javascript">document.getElementById("focusedInput").focus();</script>
 </div>
 {% endblock %}
