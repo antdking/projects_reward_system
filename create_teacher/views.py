@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 
 from create_teacher import utils
 
@@ -13,6 +13,8 @@ class CreateTeacherForm(forms.Form):
 
 @login_required()
 def create_teacher(request):
+    if not request.user.is_staff:
+        return redirect('/')
     if request.method == 'POST':  # If the form has been submitted
         form = CreateTeacherForm(request.POST)
         if form.is_valid():
