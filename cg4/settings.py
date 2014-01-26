@@ -85,4 +85,4 @@ STATICFILES_DIRS = (join(BASE_DIR, "static"),)
 TEMPLATE_DIRS = [join(BASE_DIR, 'templates')]
 
 LOGIN_REDIRECT_URL = '/'
-LOGIN_URL = '/login'
+LOGIN_URL = '/login/'
