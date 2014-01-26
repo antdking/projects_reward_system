@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
+from django.template import RequestContext
 
 from create_teacher import utils
 
@@ -27,9 +28,9 @@ def create_teacher(request):
                 admin=is_staff)
             user.save()
             return render(request, "create_teacher/create.html", {
-                'success': user.username, })
+                'success': user.username, }, context_instance=RequestContext(request))
     else:
         form = CreateTeacherForm()  # empty form
     return render(request, 'create_teacher/create.html', {
         'form': form,
-    })
+    }, context_instance=RequestContext(request))
