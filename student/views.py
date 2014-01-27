@@ -40,3 +40,11 @@ def create_student(request):
     return render(request, 'student/create.html', {
         'form': form,
     }, context_instance=RequestContext(request))
+
+
+@login_required()
+def view_students(request):
+    student_list = Student.objects.order_by('last_name')
+    context = {'students': student_list}
+    return render(request, 'student/student_list.html',
+                  context, context_instance=RequestContext(request))

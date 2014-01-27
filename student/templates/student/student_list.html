@@ -1,0 +1,35 @@
+{% extends 'main/base.html' %}
+{% block content %}
+<div class="container">
+<div class="panel panel-default">
+  <div class="panel-heading">
+      <form class="form-inline" role="search">
+          <strong>Student List</strong>
+          <div class="form-group">
+              <input type="text" class="form-control" placeholder="Search">
+          </div>
+          <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+  </div>
+  <div class="panel-body">
+      <table class="table">
+        <tr>
+            <th>Last Name</th>
+            <th>First Name</th>
+            <th>Year Group</th>
+            <th>Tutor Group</th>
+        </tr>
+          {% for student in students %}
+              <tr>
+              <td>{{ student.last_name }}</td>
+              <td>{{ student.first_name }}</td>
+              <td>{{ student.year_group }}</td>
+              <td>{{ student.tutor_group }}</td>
+              </tr>
+
+          {% endfor %}
+      </table>
+  </div>
+</div>
+</div>
+{% endblock %}

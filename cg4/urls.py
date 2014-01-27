@@ -18,4 +18,5 @@ urlpatterns = patterns('',
         {'template_name': 'main/pw_change_done.html'}, name="password_change_done"),
     url(r'^create_teacher/$', 'create_teacher.views.create_teacher'),
     url(r'^create_student/$', 'student.views.create_student'),
+    url(r'^list_student/$', 'student.views.view_students'),
 )
