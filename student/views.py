@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.forms import ModelForm
 from django.shortcuts import redirect, render
 from django.template import RequestContext
@@ -44,7 +45,20 @@ def create_student(request):
 
 @login_required()
 def view_students(request):
-    student_list = Student.objects.order_by('last_name')
+    query = request.GET.get('q')
+    print query
+    if query:
+        if ' ' in query:
+            query = query.split(' ')
+            student_list = Student.objects.filter(Q(first_name__icontains=query[0]) |
+                                                  Q(last_name__icontains=query[0]),
+                                                  Q(first_name__icontains=query[1]) |
+                                                  Q(last_name__icontains=query[1]))
+        else:
+            student_list = Student.objects.filter(Q(first_name__icontains=query) |
+                                                  Q(last_name__icontains=query))
+    else:
+        student_list = Student.objects.order_by('last_name')
     context = {'students': student_list}
     return render(request, 'student/student_list.html',
                   context, context_instance=RequestContext(request))
