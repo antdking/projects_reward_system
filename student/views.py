@@ -46,7 +46,6 @@ def create_student(request):
 @login_required()
 def view_students(request):
     query = request.GET.get('q')
-    print query
     if query:
         if ' ' in query:
             query = query.split(' ')

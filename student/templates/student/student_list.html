@@ -26,6 +26,7 @@
             <th>First Name</th>
             <th>Year Group</th>
             <th>Tutor Group</th>
+            <th>Current Points</th>
           </tr>
         </thead>
         <tbody>
@@ -35,6 +36,7 @@
                   <td>{{ student.first_name }}</td>
                   <td>{{ student.year_group }}</td>
                   <td>{{ student.tutor_group }}</td>
+                  <td>{{ student.points_total }}</td>
               </tr>
           {% endfor %}
         </tbody>
