@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 from django.forms import ModelForm
 from django.shortcuts import redirect, render
@@ -52,19 +53,30 @@ def create_student(request):
 @login_required()
 def view_students(request):
     query = request.GET.get('q')
+    page = request.GET.get('page')
+    q_without_page = request.GET.copy()
+    if 'page' in q_without_page:
+        del q_without_page['page']
     if query:
         if ' ' in query:
             query = query.split(' ')
-            student_list = Student.objects.filter(Q(first_name__icontains=query[0]) |
-                                                  Q(last_name__icontains=query[0]),
-                                                  Q(first_name__icontains=query[1]) |
-                                                  Q(last_name__icontains=query[1]))
+            student_list = Student.objects.filter(Q(first_name__icontains=query[0]),
+                                                  Q(last_name__icontains=query[1]) |
+                                                  Q(first_name__icontains=query[1]),
+                                                  Q(last_name__icontains=query[0]))
         else:
             student_list = Student.objects.filter(Q(first_name__icontains=query) |
                                                   Q(last_name__icontains=query))
     else:
         student_list = Student.objects.order_by('last_name')
-    context = {'students': student_list}
+    paginator = Paginator(student_list, 10)
+    try:
+        students = paginator.page(page)
+    except PageNotAnInteger:
+        students = paginator.page(1)
+    except EmptyPage:
+        students = paginator.page(paginator.num_pages)
+    context = {'students': students, 'queries': q_without_page}
     return render(request, 'student/student_list.html',
                   context, context_instance=RequestContext(request))
 

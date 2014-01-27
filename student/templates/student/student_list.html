@@ -42,6 +42,13 @@
         </tbody>
       </table>
   </div>
+  <div class="pager">
+      {% for p in students.paginator.page_range %}
+          <li><a class="btn btn-default{% ifequal p students.number %} active{% endifequal %}" role="button" href="?{{queries.urlencode}}&amp;page={{p}}">{{ p }}</a></li>
+      {% empty %}
+          <button type="button" class="btn btn-default selected">1</button>
+      {% endfor %}
+  </div>
 </div>
 </div>
 <script type="text/javascript">
