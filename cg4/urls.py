@@ -6,7 +6,7 @@ urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'cg4.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
-
+    url(r'^$', 'student.views.view_students'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^login/$', 'django.contrib.auth.views.login',
         {'template_name': 'main/login.html'}),
@@ -19,4 +19,5 @@ urlpatterns = patterns('',
     url(r'^create_teacher/$', 'create_teacher.views.create_teacher'),
     url(r'^create_student/$', 'student.views.create_student'),
     url(r'^list_student/$', 'student.views.view_students'),
+    url(r'^assign_point/$', 'student.views.assign_point'),
 )

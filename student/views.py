@@ -5,13 +5,19 @@ from django.shortcuts import redirect, render
 from django.template import RequestContext
 
 from student import utils
-from student.models import Student
+from student.models import Student, Points
 
 
 class CreateStudentForm(ModelForm):
     class Meta:
         model = Student
         fields = ['first_name', 'last_name', 'year_group', 'tutor_group']
+
+
+class AssignPointForm(ModelForm):
+    class Meta:
+        model = Points
+        fields = ['points', 'reason', 'added']
 
 
 @login_required()
@@ -61,3 +67,34 @@ def view_students(request):
     context = {'students': student_list}
     return render(request, 'student/student_list.html',
                   context, context_instance=RequestContext(request))
+
+
+@login_required()
+def assign_point(request):
+    student_id = request.GET.get('student')
+    if not student_id:
+        return redirect('/')
+    try:
+        student = Student.objects.get(user_id=student_id)
+    except Student.DoesNotExist:
+        return redirect('/')
+    del student
+    if request.method == 'POST':
+        form = AssignPointForm(request.POST)
+        if form.is_valid():
+            points = form.cleaned_data['points']
+            reason = form.cleaned_data['reason']
+            added = form.cleaned_data['added']
+            point = utils.assign_student_point(
+                user_id=student_id,
+                points=points,
+                added=added,
+                reason=reason
+            )
+            point.save()
+            return redirect('/')
+    else:
+        form = AssignPointForm()
+    return render(request, 'student/assign_point.html', {
+        'form': form,
+    }, context_instance=RequestContext(request))

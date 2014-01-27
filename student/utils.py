@@ -1,6 +1,6 @@
 from django.db.models import Max
 
-from student.models import Student
+from student.models import Student, Points
 
 
 def create_student_object(first_name, last_name, year_group, tutor_group):
@@ -31,3 +31,13 @@ def create_student_object(first_name, last_name, year_group, tutor_group):
         year_group=year_group,
         tutor_group=tutor_group)
     return student
+
+def assign_student_point(user_id, points, added, reason):
+    student = Student.objects.get(user_id=user_id)
+    point = Points(
+        student=student,
+        points=points,
+        added=added,
+        reason=reason
+    )
+    return point

@@ -1,0 +1,39 @@
+{% extends 'main/base.html' %}
+{% block content %}
+<div class="container">
+    {% if form.errors %}
+        <div class="alert alert-danger alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" hidden="true">&times;</button>
+        <strong>Heads up!</strong> Best check the details you entered
+        </div>
+    {% endif %}
+<form method="post" action="{% url 'student.views.assign_point' %}">
+    <div class="form-group">
+        {% csrf_token %}
+        {{ form.points.label_tag }}
+        <input required="required" class="form-control" id="focusedInput" type="number" name="{{ form.first_name.html_name }}" placeholder="enter amount..">
+    </div>
+    <div class="form-group">
+        {{ form.points.label_tag }}
+        <textarea required="required" class="form-control" id="{{ form.reason.id_for_label }}" name="{{ form.reason.html_name }}" placeholder="enter reason.."></textarea>
+    </div>
+    <div class="form-group">
+        <div class="radio">
+            <label>
+             <input type="radio" name="{{ form.added.html_name }}" id="{{ form.added.id_for_label }}" value="True" checked>
+                Add points
+            </label>
+        </div>
+        <div class="radio">
+            <label>
+             <input type="radio" name="{{ form.added.html_name }}" id="{{ form.added.id_for_label }}" value="False">
+                Remove points
+            </label>
+        </div>
+    </div>
+    <input class="btn btn-default" type="submit" value="add points" />
+    <input type="hidden" name="next" value="{{ next }}" />
+</form>
+<script type="text/javascript">document.getElementById("focusedInput").focus();</script>
+</div>
+{% endblock %}
