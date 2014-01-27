@@ -27,8 +27,10 @@ def create_teacher(request):
                 last_name,
                 admin=is_staff)
             user.save()
+            form = CreateTeacherForm()
             return render(request, "create_teacher/create.html", {
-                'success': user.username, }, context_instance=RequestContext(request))
+                'success': user.username,
+                'form': form, }, context_instance=RequestContext(request))
     else:
         form = CreateTeacherForm()  # empty form
     return render(request, 'create_teacher/create.html', {

@@ -30,8 +30,10 @@ def create_student(request):
                 year_group,
                 tutor_group)
             student.save()
+            form = CreateStudentForm()
             return render(request, "student/create.html", {
-                'success': " ".join([student.first_name, student.last_name])},
+                'success': " ".join([student.first_name, student.last_name])
+                'form': form, },
                 context_instance=RequestContext(request))
     else:
         form = CreateStudentForm()  # empty form
