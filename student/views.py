@@ -70,15 +70,12 @@ def view_students(request):
 
 
 @login_required()
-def assign_point(request):
-    student_id = request.GET.get('student')
-    if not student_id:
-        return redirect('/')
+def assign_point(request, student_id):
     try:
-        student = Student.objects.get(user_id=student_id)
+        std = Student.objects.get(user_id=student_id)
     except Student.DoesNotExist:
         return redirect('/')
-    del student
+    del std
     if request.method == 'POST':
         form = AssignPointForm(request.POST)
         if form.is_valid():
@@ -91,10 +88,12 @@ def assign_point(request):
                 added=added,
                 reason=reason
             )
+            print points
             point.save()
             return redirect('/')
     else:
         form = AssignPointForm()
     return render(request, 'student/assign_point.html', {
         'form': form,
+        'id': student_id,
     }, context_instance=RequestContext(request))

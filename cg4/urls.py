@@ -19,5 +19,5 @@ urlpatterns = patterns('',
     url(r'^create_teacher/$', 'create_teacher.views.create_teacher'),
     url(r'^create_student/$', 'student.views.create_student'),
     url(r'^list_student/$', 'student.views.view_students'),
-    url(r'^assign_point/$', 'student.views.assign_point'),
+    url(r'^assign_point/(?P<student_id>\d+)/$', 'student.views.assign_point', name='assign_point'),
 )

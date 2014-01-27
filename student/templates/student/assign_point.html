@@ -7,17 +7,20 @@
         <strong>Heads up!</strong> Best check the details you entered
         </div>
     {% endif %}
-<form method="post" action="{% url 'student.views.assign_point' %}">
+<form method="post" action="{% url 'student.views.assign_point' id %}">
+    {% csrf_token %}
     <div class="form-group">
-        {% csrf_token %}
+        {{ form.points.errors }}
         {{ form.points.label_tag }}
-        <input required="required" class="form-control" id="focusedInput" type="number" name="{{ form.first_name.html_name }}" placeholder="enter amount..">
+        <input required="required" class="form-control" id="focusedInput" type="number" name="{{ form.points.html_name }}" placeholder="enter amount..">
     </div>
     <div class="form-group">
-        {{ form.points.label_tag }}
+        {{ form.reason.errors }}
+        {{ form.reason.label_tag }}
         <textarea required="required" class="form-control" id="{{ form.reason.id_for_label }}" name="{{ form.reason.html_name }}" placeholder="enter reason.."></textarea>
     </div>
     <div class="form-group">
+        {{ form.added.errors }}
         <div class="radio">
             <label>
              <input type="radio" name="{{ form.added.html_name }}" id="{{ form.added.id_for_label }}" value="True" checked>

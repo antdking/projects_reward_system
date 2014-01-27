@@ -32,6 +32,7 @@ def create_student_object(first_name, last_name, year_group, tutor_group):
         tutor_group=tutor_group)
     return student
 
+
 def assign_student_point(user_id, points, added, reason):
     student = Student.objects.get(user_id=user_id)
     point = Points(
@@ -40,4 +41,5 @@ def assign_student_point(user_id, points, added, reason):
         added=added,
         reason=reason
     )
+    print point.points
     return point
