@@ -87,3 +87,8 @@ TEMPLATE_DIRS = [join(BASE_DIR, 'templates')]
 
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/login/'
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.core.context_processors.request',
+    'django.contrib.auth.context_processors.auth',
+)

@@ -17,17 +17,19 @@
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     {% if user.is_authenticated %}
     <ul class="nav navbar-nav">
-      <li class="active"><a href="/admin">Link</a></li>
+      <li{% if request.path in "/list_student/" or request.path in "/" %} class="active" {% endif %}>
+          <a href="/list_student/">List Student</a></li>
       {% if user.is_staff %}
-      <li><a href="#">Link</a></li>
+      <li{% if request.path == "/create_student/" %} class="active" {% endif %}><a href="/create_student/">Create Student</a></li>
+      <li{% if request.path == "/create_teacher/" %} class="active" {% endif %}><a href="/create_teacher/">Create Teacher</a></li>
       {% endif %}
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="/logout/">logout from {{ user.username }}</a> </li>
+      <li{% if request.path == "/logout/" %} class="active" {% endif %}><a href="/logout/">logout from {{ user.username }}</a> </li>
     </ul>
     {% else %}
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="/login/">login</a> </li>
+      <li{% if request.path == "/login/" %} class="active" {% endif %}><a href="/login/">login</a> </li>
     </ul>
     {% endif %}
   </div><!-- /.navbar-collapse -->
